@@ -1,0 +1,43 @@
+# Local/editor/agent state
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.xcuserstate
+xcuserdata/
+local.properties
+.claude/settings.local.json
+__pycache__/
+
+# Build output and generated bindings (keep source and lockfiles)
+target/
+build/
+.gradle/
+.kotlin/
+.cxx/
+.externalNativeBuild/
+captures/
+*.hprof
+**/src/main/jniLibs/
+.build/
+.swiftpm/
+DerivedData/
+*.xcarchive
+*.xcframework/
+*.apk
+*.aab
+*.ipa
+
+# Credentials and signing material
+.env
+.env.*
+!.env.example
+keystore.properties
+*.keystore
+*.jks
+*.p12
+*.p8
+*.pem
+*.key
+*.mobileprovision
+*.provisionprofile

@@ -1,0 +1,395 @@
+{
+  "version": 2,
+  "actions": [
+    {
+      "id": "build",
+      "title": "Build (setup needed)",
+      "symbol": "hammer",
+      "command": "build-android-debug",
+      "options": [
+        {
+          "title": "Build Android Release (not configured)",
+          "command": "build-android-release"
+        },
+        {
+          "title": "Build iOS Debug simulator (not configured)",
+          "command": "build-ios-debug-simulator"
+        },
+        {
+          "title": "Build iOS Release device (not configured)",
+          "command": "build-ios-release-device"
+        },
+        {
+          "title": "Build macOS Debug (not configured)",
+          "command": "build-macos-debug"
+        }
+      ]
+    },
+    {
+      "id": "test",
+      "title": "Test",
+      "symbol": "checkmark.circle",
+      "command": "test-template",
+      "options": [
+        {
+          "title": "Test core (not configured)",
+          "command": "test-core"
+        },
+        {
+          "title": "Test Android (not configured)",
+          "command": "test-android"
+        },
+        {
+          "title": "Test Android device (not configured)",
+          "command": "test-android-device"
+        },
+        {
+          "title": "Test iOS (not configured)",
+          "command": "test-ios"
+        },
+        {
+          "title": "Test macOS (not configured)",
+          "command": "test-macos"
+        }
+      ]
+    },
+    {
+      "id": "run",
+      "title": "Run (setup needed)",
+      "symbol": "play",
+      "command": "run-android-emulator-debug",
+      "options": [
+        {
+          "title": "Run Android device Release (not configured)",
+          "command": "run-android-device-release"
+        },
+        {
+          "title": "Run iOS simulator Debug (not configured)",
+          "command": "run-ios-simulator-debug"
+        },
+        {
+          "title": "Run iOS device Release (not configured)",
+          "command": "run-ios-device-release"
+        },
+        {
+          "title": "Run macOS desktop Debug (not configured)",
+          "command": "run-macos-desktop-debug"
+        }
+      ]
+    },
+    {
+      "id": "install",
+      "title": "Install (setup needed)",
+      "symbol": "iphone",
+      "command": "install-android-emulator-debug",
+      "options": [
+        {
+          "title": "Install Android device Release (not configured)",
+          "command": "install-android-device-release"
+        },
+        {
+          "title": "Install iOS device Release (not configured)",
+          "command": "install-ios-device-release"
+        },
+        {
+          "title": "Install iOS simulator Debug (not configured)",
+          "command": "install-ios-simulator-debug"
+        }
+      ]
+    },
+    {
+      "id": "devices",
+      "title": "Devices",
+      "symbol": "display",
+      "command": "devices-android",
+      "options": [
+        {
+          "title": "List Apple devices and simulators",
+          "command": "devices-ios"
+        },
+        {
+          "title": "Start Android emulator (not configured)",
+          "command": "emulator-android"
+        },
+        {
+          "title": "Start iOS simulator (not configured)",
+          "command": "emulator-ios"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "Tools: cleanup preview",
+      "symbol": "wrench.and.screwdriver",
+      "command": "clean-preview",
+      "options": [
+        {
+          "title": "Remove repo build output (stop builds first)",
+          "command": "clean-apply"
+        },
+        {
+          "title": "Android bootstrap checklist (no changes)",
+          "command": "bootstrap-android"
+        },
+        {
+          "title": "iOS bootstrap checklist (no changes)",
+          "command": "bootstrap-ios"
+        },
+        {
+          "title": "macOS bootstrap checklist (no changes)",
+          "command": "bootstrap-macos"
+        },
+        {
+          "title": "OrganizerMD setup guide",
+          "file": "docs/ORGANIZERMD.md"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "id": "build-android-debug",
+      "name": "Build Android Debug (not configured)",
+      "command": "./scripts/build.sh android debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "build"
+    },
+    {
+      "id": "build-android-release",
+      "name": "Build Android Release (not configured)",
+      "command": "./scripts/build.sh android release",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "build"
+    },
+    {
+      "id": "build-ios-debug-simulator",
+      "name": "Build iOS Debug simulator (not configured)",
+      "command": "./scripts/build.sh ios debug simulator",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "build"
+    },
+    {
+      "id": "build-ios-release-device",
+      "name": "Build iOS Release device (not configured)",
+      "command": "./scripts/build.sh ios release device",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "build"
+    },
+    {
+      "id": "build-macos-debug",
+      "name": "Build macOS Debug (not configured)",
+      "command": "./scripts/build.sh macos debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "build"
+    },
+    {
+      "id": "test-template",
+      "name": "Test template",
+      "command": "./scripts/test.sh template",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "test"
+    },
+    {
+      "id": "test-core",
+      "name": "Test core (not configured)",
+      "command": "./scripts/test.sh core",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "test"
+    },
+    {
+      "id": "test-android",
+      "name": "Test Android (not configured)",
+      "command": "./scripts/test.sh android",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "test"
+    },
+    {
+      "id": "test-android-device",
+      "name": "Test Android device (not configured)",
+      "command": "./scripts/test.sh android-device",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "test"
+    },
+    {
+      "id": "test-ios",
+      "name": "Test iOS (not configured)",
+      "command": "./scripts/test.sh ios",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "test"
+    },
+    {
+      "id": "test-macos",
+      "name": "Test macOS (not configured)",
+      "command": "./scripts/test.sh macos",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "test"
+    },
+    {
+      "id": "run-android-emulator-debug",
+      "name": "Run Android emulator Debug (not configured)",
+      "command": "./scripts/run.sh android emulator debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "run-android-device-release",
+      "name": "Run Android device Release (not configured)",
+      "command": "./scripts/run.sh android device release",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "run-ios-simulator-debug",
+      "name": "Run iOS simulator Debug (not configured)",
+      "command": "./scripts/run.sh ios simulator debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "run-ios-device-release",
+      "name": "Run iOS device Release (not configured)",
+      "command": "./scripts/run.sh ios device release",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "run-macos-desktop-debug",
+      "name": "Run macOS desktop Debug (not configured)",
+      "command": "./scripts/run.sh macos desktop debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "install-android-device-release",
+      "name": "Install Android device Release (not configured)",
+      "command": "./scripts/install.sh android device release",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "install"
+    },
+    {
+      "id": "install-android-emulator-debug",
+      "name": "Install Android emulator Debug (not configured)",
+      "command": "./scripts/install.sh android emulator debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "install"
+    },
+    {
+      "id": "install-ios-device-release",
+      "name": "Install iOS device Release (not configured)",
+      "command": "./scripts/install.sh ios device release",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "install"
+    },
+    {
+      "id": "install-ios-simulator-debug",
+      "name": "Install iOS simulator Debug (not configured)",
+      "command": "./scripts/install.sh ios simulator debug",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "install"
+    },
+    {
+      "id": "devices-android",
+      "name": "List Android devices and AVDs",
+      "command": "./scripts/devices.sh android",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "devices-ios",
+      "name": "List Apple devices and simulators",
+      "command": "./scripts/devices.sh ios",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "emulator-android",
+      "name": "Start Android emulator (not configured)",
+      "command": "./scripts/emulator.sh android",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "emulator-ios",
+      "name": "Start iOS simulator (not configured)",
+      "command": "./scripts/emulator.sh ios",
+      "documentation": "Not configured yet. See scripts/README.md and docs/ORGANIZERMD.md.",
+      "purpose": "run"
+    },
+    {
+      "id": "clean-preview",
+      "name": "Preview build-output cleanup",
+      "command": "./scripts/clean.sh",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md."
+    },
+    {
+      "id": "clean-apply",
+      "name": "Remove repo build output (stop builds first)",
+      "command": "./scripts/clean.sh --apply",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md."
+    },
+    {
+      "id": "bootstrap-android",
+      "name": "Print Android bootstrap checklist",
+      "command": "./scripts/bootstrap.sh android",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md."
+    },
+    {
+      "id": "bootstrap-ios",
+      "name": "Print iOS bootstrap checklist",
+      "command": "./scripts/bootstrap.sh ios",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md."
+    },
+    {
+      "id": "bootstrap-macos",
+      "name": "Print macOS bootstrap checklist",
+      "command": "./scripts/bootstrap.sh macos",
+      "documentation": "See scripts/README.md and docs/ORGANIZERMD.md."
+    }
+  ],
+  "apps": [],
+  "overview": {
+    "cards": [
+      "actions",
+      "git",
+      "size"
+    ]
+  },
+  "inspector": {
+    "sections": [
+      "pinnedCommands",
+      "headings",
+      "sectionCommands",
+      "allCommands"
+    ]
+  },
+  "hiddenCommands": [],
+  "refresh": "live",
+  "documents": {
+    "include": [],
+    "exclude": [
+      "**/.git",
+      "**/target",
+      "**/build",
+      "**/.build",
+      "**/DerivedData",
+      "**/.gradle",
+      "**/.kotlin",
+      "**/.swiftpm",
+      "**/generated",
+      "**/*.app",
+      "**/*.framework",
+      "**/*.xcframework",
+      "**/*.xcarchive",
+      "**/node_modules",
+      "**/vendor",
+      "**/Pods",
+      "**/Carthage",
+      "**/dist",
+      "**/out",
+      "**/.cache",
+      "**/.venv",
+      "**/venv",
+      "**/__pycache__"
+    ]
+  }
+}
