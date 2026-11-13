@@ -1,28 +1,31 @@
 # Project selection
 
 This file is the current selection, not a build configuration. Agents read it before choosing
-work or tooling. Change it when the user chooses a different mode or activates a target.
+work or tooling. Update it when the user selects a primary target or changes the active targets.
 
 | Setting | Current value |
 | --- | --- |
 | Project | RustNative reusable starter |
 | Phase | Starter docs and tooling; no app scaffolded |
 | App purpose | Not chosen; define in a derived project |
-| Mode | `android-only` |
-| Active targets | Android phones |
-| Apple targets | None; choose iOS, iPadOS, and/or macOS when activated |
+| Primary target | Unset |
+| Active targets | None |
 | Coordination | `solo` |
-| Leading platform | Android (planned; no implemented reference app) |
-| Shared core | Rust + Mozilla UniFFI (selected design; not scaffolded) |
+| Shared core and consumers | Unset. Record Rust and its consumers if selected |
 | Persistence / networking / server | None selected |
-| Identifiers / minimum OS / architectures | Choose at activation |
+| Browser framework / browser coverage | Choose for the first feature |
+| Android baseline if activated | Android 16 (API 36); no older Android support planned |
+| Identifiers / Apple minimum OS / architectures | Choose at activation |
 | Integration owner | Current working agent until explicitly reassigned |
 
-## Mode rules
+## Target rules
 
-- `android-only`: work on Android and applicable Rust code. Apple is deferred.
-- `apple-only`: work on selected Apple targets and applicable Rust code. Android is deferred.
-- `dual`: work on Android and selected Apple targets; track each target's evidence separately.
+- Choose one primary target from `web`, `android`, `ios`, `ipados`, and `macos`. Include it in the
+  active list. The primary target guides the first feature and provides a reference for ports.
+- List every target to build and verify. Examples include `[android]`, `[web]`, `[ios, ipados]`,
+  and `[web, android, macos]`. The same workflow applies to any mix.
+- Targets outside the list are deferred. Select iPhone, iPad, and Mac independently even if
+  they share code or an Xcode scheme.
 
 Use `solo` coordination by default. `threads` means two user-requested platform chats plus
 an assigned integration owner. `subagents` means a user-selected coordinator workflow with

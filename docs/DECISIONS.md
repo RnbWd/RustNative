@@ -3,17 +3,22 @@
 Research checked against the primary sources below on **2026-10-16**. These are starter
 decisions; no Rust/native integration has been built or benchmarked in this repository.
 
+## Platform selection
+
+Choose a primary platform and active targets per project. Start with the platform's own UI
+tooling. Add Rust, WASM, a service, or a port when a feature benefits from it.
+
 ## Rust core + Mozilla UniFFI
 
-**Selected.** Rust is a good fit for portable domain rules and focused headless tests.
+**Selected for direct native Rust integration.** Rust is a good fit for portable domain rules and focused headless tests.
 UniFFI generates Kotlin and Swift bindings from a Rust-defined interface. It does not package
 or ship the library for us; native build integration remains our responsibility.
 Source: [UniFFI guide](https://mozilla.github.io/uniffi-rs/latest/).
 
 This fits apps with meaningful shared rules, parsing, algorithms, or data invariants. The costs
-are an extra toolchain, an FFI boundary, and separately maintained native UIs. For a tiny app
-that mostly wraps platform APIs, Rust may add more maintenance than sharing saves. Keep Rust
-as the selected starting design, prove one small integration, and reassess if it has no useful work.
+are an extra toolchain, an FFI boundary, and separately maintained native UIs. A small app
+that mostly wraps platform APIs can stay in its platform language. When sharing pays off,
+prove one small Rust integration.
 
 Android's UniFFI Kotlin backend uses JNA, including its Android AAR. That is a dependency and
 packaging cost, not "zero runtime overhead." Generated object lifetime also needs deliberate
@@ -26,8 +31,8 @@ Source: [rustc platform support](https://doc.rust-lang.org/rustc/platform-suppor
 
 ## Native shells with a small shared boundary
 
-**Selected.** Compose and SwiftUI keep platform services and native tooling close to the UI.
-Shared business rules belong in Rust; presentation state and platform adaptation stay native.
+Compose and SwiftUI keep platform services and native tooling close to the UI. AppKit covers
+macOS behavior when needed. If the app uses Rust, keep its boundary focused on portable rules.
 Use each ecosystem's normal state/lifecycle tools without imposing a second UI framework.
 References: [Android architecture recommendations](https://developer.android.com/topic/architecture/recommendations),
 [SwiftUI model data](https://developer.apple.com/documentation/swiftui/model-data).
@@ -38,7 +43,7 @@ Source: [UniFFI async support](https://mozilla.github.io/uniffi-rs/latest/future
 
 ## Starter defaults
 
-Keep the shared core, generated bindings, native device integration, and clear ownership.
+Keep clear ownership across platform code and any shared core.
 Keep everything else general:
 
 - Select platforms independently. Do not require all-platform builds for an Android-only change.
@@ -75,3 +80,7 @@ Do not add a framework-selection catalog to every new app. Reopen a decision onl
 constraint: a platform-heavy single-target app can stay native-only; another shared-core system
 may be appropriate if Rust integration becomes the main maintenance cost. A shared renderer
 would be a different product tradeoff from this starter's direct native UI approach.
+
+For Rust changes, prefer borrowing when the caller can retain ownership, return typed errors at
+fallible boundaries, and scope lint checks to the affected crate and features. See
+[Apollo's Rust Best Practices](https://github.com/apollographql/skills/tree/main/skills/rust-best-practices).

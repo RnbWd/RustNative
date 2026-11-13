@@ -1,29 +1,36 @@
 ---
 name: native-android
-description: "Implement or integrate the Android side of a RustNative app using Kotlin, Jetpack Compose, and UniFFI. Use for Android UI, lifecycle/device APIs, and release binding integration when Android is active."
+description: "Implement and verify an active Android target in RustNative with Kotlin and Jetpack Compose. Use for Android UI, device behavior, packaging, debugging, or optional Rust integration."
 ---
 
 # Android native work
 
 Read [Android instructions](../../../android/AGENTS.md), [project selection](../../../docs/PROJECT.md),
-and the feature/core contract. If Android is inactive, record port impact rather than creating
-or building a project. At first activation use [TOOLCHAIN.md](../../../docs/TOOLCHAIN.md).
+and the feature behavior. At first activation use the [toolchain checklist](../../../docs/TOOLCHAIN.md).
+Use Compose for UI, with lifecycle-aware state and Android APIs for platform effects.
 
-Keep Compose presentation state and Android services native. Put portable rules in Rust.
-Use a small adapter around generated Kotlin bindings, explicit core lifetime, and lifecycle-aware
-observable state. Dispatch blocking Rust calls away from Main; cancellation of a caller does
-not guarantee a synchronous core mutation stops.
+## Required checks for affected behavior
 
-Use the pinned UniFFI generator and compatible JNA Android AAR. Verify real release loading
-after R8, the selected ABI/API, and 16 KB compatibility of all native libraries and packaging.
-Do not solve a load or shrinker failure by editing generated bindings or disabling checksums.
+- Build the affected Gradle variant, confirm the API level and destination, and run the
+  [feature scenario](../../../docs/PARITY.md#verify-one-scenario). Use Compose semantics for
+  control discovery and test tags for controls without a useful unique semantic selector.
+- For UI changes, check TalkBack labels and focus, text scaling, touch targets, and relevant
+  system bar or keyboard insets. Exercise rotation, background/resume, or process recreation
+  when the change affects lifecycle or state restoration.
+- If persistence changes, verify data after relaunch and exercise migration with synthetic
+  older data when a prior schema exists. For permission changes, check least privilege,
+  grant, denial, and revocation. Verify hardware-dependent behavior on a selected Android 16
+  device. Record an explicit gap if hardware is unavailable.
+- For release or packaging changes, inspect the actual APK or AAB and smoke-test the
+  installable release variant with the configured shrinking. Check ABI and 16 KB alignment
+  if native libraries are packaged. If using UniFFI, verify the matching JNA AAR, generated
+  bindings, real release load, and typed error. See [Android packaging](../../../docs/TOOLCHAIN.md#android-details).
 
-Check current platform guidance for the feature against the selected minimum/target SDKs.
-Start with [Android architecture recommendations](https://developer.android.com/topic/architecture/recommendations),
-[UniFFI Gradle integration](https://mozilla.github.io/uniffi-rs/latest/kotlin/gradle.html), and
-[Android page sizes](https://developer.android.com/guide/practices/page-sizes) as relevant.
+Use focused `adb logcat` output or Android Studio to diagnose failures. Record the variant,
+device/OS, reproduction steps, and first relevant error. Keep test data isolated and preserve
+existing device sessions.
 
-Run focused checks for the actual change. Use synthetic device data and brief runtime checks.
-For lengthy or subjective GUI inspection, use a human or an authorized low-cost inspection
-agent. Record actual screenshots/behavior through [PARITY.md](../../../docs/PARITY.md),
-clean up only sessions you started, and report any unverified behavior.
+Run broader device matrices, screenshot suites, R8 analysis, or profiling when the change
+calls for them. See Google's [Compose testing setup](https://github.com/android/skills/blob/main/testing/testing-setup/SKILL.md),
+[permission guidance](https://github.com/android/skills/blob/main/security/android-permissions-security/SKILL.md),
+and [edge-to-edge checks](https://github.com/android/skills/blob/main/system/edge-to-edge/SKILL.md).

@@ -1,7 +1,13 @@
 # Architecture
 
-**Status:** intended design; starter tooling exists, but no application code. Rust + UniFFI is the default
-shared-core approach. Android is the only initially selected platform.
+**Status:** intended design. Select the primary platform and active targets in
+[docs/PROJECT.md](docs/PROJECT.md). Start with one useful feature in the primary platform's UI:
+conventional web technologies, Kotlin and Jetpack Compose, or SwiftUI with AppKit where needed.
+
+Keep reusable rules independent of DOM and OS APIs. Choose Rust for concrete reuse, WASM when
+the browser needs to run that Rust, or a private service when a feature needs server-side work.
+
+The diagram shows the optional UniFFI bridge for native apps that use a shared Rust core.
 
 ```mermaid
 flowchart TB
@@ -19,21 +25,21 @@ flowchart TB
 
 | Concern | Default owner |
 | --- | --- |
-| Product rules, validation, calculations, portable state transitions | Rust |
-| Shared structured data and domain errors crossing the boundary | Rust definitions → UniFFI |
-| Screens, navigation, animation, formatting, local UI state | Kotlin / Swift |
-| Lifecycle, background tasks, permissions, notifications, media, sensors | Native platform APIs |
+| Product rules, validation, calculations, portable state transitions | Portable code; Rust when sharing it earns the cost |
+| Data and domain errors across a Rust boundary | Rust definitions; UniFFI for native, browser adapter if using WASM |
+| Screens, navigation, animation, formatting, local UI state | Active UI: browser, Kotlin, or Swift |
+| Lifecycle, background tasks, permissions, notifications, media, sensors | Platform APIs |
 | Credentials and encryption-key storage | Native Keychain / Keystore-backed storage |
-| HTTP requests, TLS, connectivity, OS-managed transfers | Native transport by default |
+| HTTP requests, TLS, connectivity, OS-managed transfers | Platform transport by default |
 | Durable domain data | One selected owner; Rust storage when sharing it earns its cost |
-| UI preferences, presentation caches | Native unless they are shared product behavior |
+| UI preferences, presentation caches | Platform UI |
 | Server | Optional, separately designed only when required |
 
 Native adapters are real application code: they translate device events to domain inputs,
 execute platform effects, and expose observable state. They can use idiomatic view models,
 repositories, actors, or simple classes. Do not force every UI decision through Rust.
 
-## The first implementation
+## First native integration with Rust
 
 Start with one Rust crate under `core/`, one native project for the selected platform, and
 one small feature. Place the UniFFI facade in that crate initially. Split domain and FFI crates

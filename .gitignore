@@ -7,11 +7,19 @@
 xcuserdata/
 local.properties
 .claude/settings.local.json
+AGENTS.override.md
 __pycache__/
 
 # Build output and generated bindings (keep source and lockfiles)
 target/
 build/
+node_modules/
+dist/
+.next/
+.svelte-kit/
+.astro/
+.vite/
+coverage/
 .gradle/
 .kotlin/
 .cxx/
@@ -36,6 +44,7 @@ keystore.properties
 *.keystore
 *.jks
 *.p12
+*.pfx
 *.p8
 *.pem
 *.key

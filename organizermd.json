@@ -2,11 +2,46 @@
   "version": 2,
   "actions": [
     {
-      "id": "build",
-      "title": "Build (setup needed)",
-      "symbol": "hammer",
-      "command": "build-android-debug",
+      "id": "project-setup",
+      "title": "Project setup",
+      "symbol": "globe",
+      "command": "bootstrap-project",
       "options": [
+        {
+          "title": "Web setup checklist",
+          "command": "bootstrap-web"
+        },
+        {
+          "title": "Android bootstrap checklist (no changes)",
+          "command": "bootstrap-android"
+        },
+        {
+          "title": "iOS / iPadOS setup checklist",
+          "command": "bootstrap-ios"
+        },
+        {
+          "title": "macOS bootstrap checklist (no changes)",
+          "command": "bootstrap-macos"
+        },
+        {
+          "title": "ChatGPT research prompt",
+          "file": "docs/prompts/chatgpt-research.md"
+        },
+        {
+          "title": "Fable/Astra review prompt",
+          "file": "docs/prompts/architecture-skills-review.md"
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Native build (setup needed)",
+      "symbol": "hammer",
+      "options": [
+        {
+          "title": "Build Android Debug (not configured)",
+          "command": "build-android-debug"
+        },
         {
           "title": "Build Android Release (not configured)",
           "command": "build-android-release"
@@ -23,7 +58,8 @@
           "title": "Build macOS Debug (not configured)",
           "command": "build-macos-debug"
         }
-      ]
+      ],
+      "file": "docs/TOOLCHAIN.md"
     },
     {
       "id": "test",
@@ -55,10 +91,13 @@
     },
     {
       "id": "run",
-      "title": "Run (setup needed)",
+      "title": "Native run (setup needed)",
       "symbol": "play",
-      "command": "run-android-emulator-debug",
       "options": [
+        {
+          "title": "Run Android emulator Debug (not configured)",
+          "command": "run-android-emulator-debug"
+        },
         {
           "title": "Run Android device Release (not configured)",
           "command": "run-android-device-release"
@@ -75,27 +114,8 @@
           "title": "Run macOS desktop Debug (not configured)",
           "command": "run-macos-desktop-debug"
         }
-      ]
-    },
-    {
-      "id": "install",
-      "title": "Install (setup needed)",
-      "symbol": "iphone",
-      "command": "install-android-emulator-debug",
-      "options": [
-        {
-          "title": "Install Android device Release (not configured)",
-          "command": "install-android-device-release"
-        },
-        {
-          "title": "Install iOS device Release (not configured)",
-          "command": "install-ios-device-release"
-        },
-        {
-          "title": "Install iOS simulator Debug (not configured)",
-          "command": "install-ios-simulator-debug"
-        }
-      ]
+      ],
+      "file": "scripts/README.md"
     },
     {
       "id": "devices",
@@ -128,18 +148,6 @@
           "command": "clean-apply"
         },
         {
-          "title": "Android bootstrap checklist (no changes)",
-          "command": "bootstrap-android"
-        },
-        {
-          "title": "iOS bootstrap checklist (no changes)",
-          "command": "bootstrap-ios"
-        },
-        {
-          "title": "macOS bootstrap checklist (no changes)",
-          "command": "bootstrap-macos"
-        },
-        {
           "title": "OrganizerMD setup guide",
           "file": "docs/ORGANIZERMD.md"
         }
@@ -147,6 +155,18 @@
     }
   ],
   "commands": [
+    {
+      "id": "bootstrap-project",
+      "name": "Print project setup checklist",
+      "command": "./scripts/bootstrap.sh",
+      "documentation": "Prints next steps without scaffolding or installing anything."
+    },
+    {
+      "id": "bootstrap-web",
+      "name": "Print web bootstrap checklist",
+      "command": "./scripts/bootstrap.sh web",
+      "documentation": "Prints next steps without scaffolding or installing anything."
+    },
     {
       "id": "build-android-debug",
       "name": "Build Android Debug (not configured)",
@@ -347,22 +367,6 @@
     }
   ],
   "apps": [],
-  "overview": {
-    "cards": [
-      "actions",
-      "git",
-      "size"
-    ]
-  },
-  "inspector": {
-    "sections": [
-      "pinnedCommands",
-      "headings",
-      "sectionCommands",
-      "allCommands"
-    ]
-  },
-  "hiddenCommands": [],
   "refresh": "live",
   "documents": {
     "include": [],
@@ -381,6 +385,11 @@
       "**/*.xcframework",
       "**/*.xcarchive",
       "**/node_modules",
+      "**/.next",
+      "**/.svelte-kit",
+      "**/.astro",
+      "**/.vite",
+      "**/coverage",
       "**/vendor",
       "**/Pods",
       "**/Carthage",

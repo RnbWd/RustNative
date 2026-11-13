@@ -13,6 +13,6 @@ For a proposed dependency, include the need, official source, license, and maint
 cost. Do not add a toolchain, generated native project, or CI matrix just to demonstrate a concept.
 When runnable code is introduced, add its actual setup and focused verification commands.
 
-Changes to the starter's operating rules should work in `android-only`, `apple-only`, and `dual`
-modes and without any particular agent subscription or plugin. Use sample data in screenshots;
+Changes to the starter's operating rules should work for any primary target or active target mix
+and without any particular agent subscription or plugin. Use sample data in screenshots;
 never submit credentials, signing files, or screenshots of private user content.

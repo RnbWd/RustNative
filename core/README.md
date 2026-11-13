@@ -1,10 +1,11 @@
 # Shared Rust core — not scaffolded
 
 This directory reserves the home of portable product rules. There is no Cargo crate or API yet.
-Create one when implementing the first app feature, following [the architecture](../ARCHITECTURE.md)
-and [activation checklist](../docs/TOOLCHAIN.md).
+Use [the architecture](../ARCHITECTURE.md) and [activation checklist](../docs/TOOLCHAIN.md)
+when a feature justifies a crate.
 
-Start with one crate and a small UniFFI facade. Pure rules should work without a device, UI,
+Start with one portable crate when Rust is justified. Add a small UniFFI facade when a
+direct native consumer needs it. Pure rules should work without a device, UI,
 network connection, or implicit wall clock. Accept inputs and return structured outcomes/errors.
 Keep persistence optional until a feature requires it; if the core owns it, use app-private paths
 supplied by native code and own transactions/migrations in one place.

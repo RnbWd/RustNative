@@ -5,9 +5,9 @@ They use this repository's docs and official references. They do not grant extra
 
 | Skill | Use |
 | --- | --- |
-| [native-feature](native-feature/SKILL.md) | Deliver a small feature in the selected mode; coordinate only when requested |
-| [native-android](native-android/SKILL.md) | Kotlin/Compose work and the Android side of the Rust boundary |
-| [native-apple](native-apple/SKILL.md) | Swift/SwiftUI work and the selected Apple side of the Rust boundary |
+| [native-feature](native-feature/SKILL.md) | Deliver a small feature on selected web or native targets; coordinate only when requested |
+| [native-android](native-android/SKILL.md) | Kotlin/Compose work and Android device checks and optional Rust integration |
+| [native-apple](native-apple/SKILL.md) | SwiftUI/AppKit, Apple device checks and optional Rust integration |
 
 Agents with repository skill discovery can use `.agents/skills/`; Claude Code finds the same
 files through the `.claude/skills` symlink and reads `AGENTS.md` through `CLAUDE.md`. Edit only

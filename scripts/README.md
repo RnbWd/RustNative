@@ -10,8 +10,8 @@ Python 3.9+ are sufficient for template checks. No native app or toolchain is in
 | `devices.sh ios` | Lists Apple simulators and physical devices using Xcode tools | Filter by selected platform/deployment target |
 | `clean.sh` | Previews a fixed allowlist of repo-local build folders | Adjust the allowlist for real output paths |
 | `clean.sh --apply` | Removes those build folders; rejects symlink paths | Stop builds first; preserve app data and global caches |
-| `bootstrap.sh android\|ios\|macos` | Prints a setup checklist; makes no changes | Optional app-specific project generator |
-| `build.sh TARGET debug\|release [simulator\|device]` | Placeholder; exits 2 | Rust → bindings → native build; never launch |
+| `bootstrap.sh [web\|android\|ios\|ipados\|macos]` | Prints the common checklist or the requested target checklist | Optional app-specific project generator |
+| `build.sh TARGET debug\|release [simulator\|device]` | Placeholder; exits 2 | Native build with binding generation if used |
 | `test.sh core\|android\|android-device\|ios\|macos` | Placeholder; exits 2 | Focused tests/checks for active targets |
 | `install.sh TARGET device\|emulator\|simulator debug\|release` | Placeholder; exits 2 | Install a validated existing artifact; preserve data/signature |
 | `run.sh TARGET DESTINATION debug\|release` | Placeholder; exits 2 | Choose, build, boot if needed, install, launch |
@@ -26,7 +26,7 @@ unfinished task. Apple entries in OrganizerMD are dormant examples; they do not 
 
 ```sh
 ./scripts/test.sh template
-./scripts/bootstrap.sh android
+./scripts/bootstrap.sh
 ./scripts/clean.sh
 ```
 
@@ -36,7 +36,7 @@ SDK installations, global Cargo/Gradle caches, device data, signing files, or so
 
 ## Implementing the entry points
 
-Use `android`, `ios`, or `macos` as an explicit target. `ios` covers the selected iPhone/iPad
+For native tasks, use `android`, `ios`, or `macos` as an explicit target. `ios` covers the selected iPhone/iPad
 destinations; `desktop` is the macOS run destination. Reject invalid target/configuration pairs.
 Read [project selection](../docs/PROJECT.md) and reject inactive targets when wiring native tasks.
 Avoid `all` until there is an explicit active-target configuration to expand safely.

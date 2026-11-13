@@ -3,6 +3,19 @@
 A leading platform provides a behavioral reference, not an obligation to copy its pixels.
 The destination should use native navigation, permissions, typography, accessibility, and layouts.
 
+## Verify one scenario
+
+Before changing a feature, write a short scenario with synthetic inputs, the user's action,
+and an observable expected result. Add a failure case when it protects meaningful behavior.
+Exercise the affected target with its existing tools or a brief human check. Use accessible
+labels or roles to locate controls, and wait for the expected state when automating the steps.
+
+Record the build, destination, result, and any gaps. Inspect a screenshot when appearance
+matters and use logs when a failure needs diagnosis. Check device-only behavior on hardware
+and report unavailable hardware as a verification gap. Reuse the scenario on later ports.
+See [Expo Exact's testing guide](https://github.com/expo/exact/blob/main/docs/testing.md)
+for the approach to state-based waits and evidence tied to builds.
+
 ## A small port packet
 
 For a useful completed feature, adapt [templates/PORT.md](templates/PORT.md) into a note under

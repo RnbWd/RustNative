@@ -1,43 +1,41 @@
 # RustNative
 
-Build native apps with a shared Rust core and AI agents that understand each platform.
+Build original personal apps for the web, Android, iPhone, iPad, or Mac.
 
-RustNative is an open source **starter and working method**: Kotlin + Jetpack Compose on
-Android, Swift + SwiftUI on Apple, and Mozilla's [UniFFI](https://mozilla.github.io/uniffi-rs/latest/)
-to generate bindings to shared Rust logic. Each app uses the platform's UI and device APIs.
+RustNative is an open source **starter and working method**. Choose a primary platform and
+build one useful feature there. Use conventional web technologies in the browser, Kotlin and
+Jetpack Compose on Android, and SwiftUI on Apple with AppKit for macOS behavior where needed.
+Use Rust for portable rules when reuse pays off, with [UniFFI](https://mozilla.github.io/uniffi-rs/latest/)
+as the default bridge for native apps that call Rust.
 
-**Current status: starter docs and tooling.** There is no runnable app, Cargo workspace, native
-project, or generated binding. Native build/run/install scripts are explicit placeholders.
-The default is **Android only**; iOS, iPadOS, and macOS can be activated later.
+**Current status: starter docs and tooling.** Project selection is open. Native build, run,
+and install scripts are explicit placeholders.
 
 ## Why this exists
 
 Small apps should have a small, understandable codebase. Share the rules that benefit from
-one implementation; let native code own screens, navigation, accessibility, and device services.
-Agents work from the same product behavior and Rust API contract, with clear ownership when
-platform work happens in parallel.
-
-This approach trades a shared UI framework for two native UI implementations and a Rust
-integration. It aims to reduce application complexity, but makes no fixed claim about code size,
-binary size, or development speed. Measure those in the app you actually build.
+one implementation; let each platform own screens, navigation, accessibility, and device services.
+Use a small behavioral reference when porting. A direct native port gives the UI its own
+implementation and may add a Rust integration. Measure whether that trade pays off for the app.
 
 ## Start a project
 
 1. Use GitHub's **Use this template** after the repository is published and marked as a template,
    or copy this directory into a new repository without its `.git` directory.
-2. Fill in [docs/PROJECT.md](docs/PROJECT.md): app purpose, active targets, and delivery mode.
-   Keep `android-only` for a first Android app.
-3. Describe the first small feature in [docs/PRODUCT.md](docs/PRODUCT.md). Choose app/package
-   identifiers before creating native projects; there is no template identifier to rename.
-4. Give an agent the prompt below. It should read [AGENTS.md](AGENTS.md), activate only the
-   selected targets, and build one working slice through the native UI and Rust boundary.
+2. Fill in [docs/PROJECT.md](docs/PROJECT.md) with the app purpose, one primary target, and the
+   active target list.
+3. Describe the first small feature in [docs/PRODUCT.md](docs/PRODUCT.md). Decide whether it
+   needs storage, a server, or shared Rust based on the feature.
+4. Give an agent the prompt below. It should read [AGENTS.md](AGENTS.md) and build one useful
+   slice on the selected platform.
 
 ```text
 Use this RustNative starter for my app: [describe the app and its first useful feature].
-Work in android-only mode. Read AGENTS.md and docs/PROJECT.md first.
-Create the smallest native Android app and shared Rust core that deliver that feature.
-Verify a real UniFFI call and typed error in a release build before expanding the architecture.
-Keep Apple inactive and record enough behavior and screenshots to support a later port.
+My primary target is [target] and my active targets are [list].
+Read AGENTS.md and docs/PROJECT.md, then build one useful feature on the primary target.
+Use the selected platform's conventions. Add Rust or a backend only if the feature needs it.
+Verify the main interaction and a relevant failure case. Document the actual build/run commands
+and track evidence for each affected active target.
 ```
 
 The starter needs Bash and Python 3.9+ for its own checks; it installs no native toolchain.
@@ -45,7 +43,7 @@ These commands work now:
 
 ```sh
 ./scripts/test.sh template
-./scripts/bootstrap.sh android
+./scripts/bootstrap.sh
 ./scripts/clean.sh
 ```
 
@@ -60,16 +58,10 @@ and dashboard together. Follow the activation checklist in [docs/TOOLCHAIN.md](d
 
 ## Choose how to work
 
-| Mode | Active work | Inactive platform |
-| --- | --- | --- |
-| `android-only` (default) | Android + Rust | Apple stays dormant; retain useful port notes |
-| `apple-only` | Selected Apple targets + Rust | Android stays dormant; retain useful port notes |
-| `dual` | Android + selected Apple targets + Rust | Verify each active target separately |
-
-Start with one agent. For dual work, choose either two platform chats with an assigned
-integration owner, or a coordinator with one Android and one Apple subagent. The workflow
-defines ownership, contract changes, and handoffs in [docs/WORKFLOW.md](docs/WORKFLOW.md).
-It does not require parallel agents for single-platform work.
+Android-only, web-only, Apple-only, and mixed projects use the same selection and feature
+workflow. Run `./scripts/bootstrap.sh` for the common checklist or pass an explicit target for
+platform setup. Start with one agent even when several targets are active. See
+[docs/WORKFLOW.md](docs/WORKFLOW.md) for optional coordination and handoffs.
 
 If one platform leads, capture its behavior and a few representative screenshots using
 [docs/PARITY.md](docs/PARITY.md). A port should preserve product behavior and use the
@@ -107,14 +99,18 @@ vendor is required, and there is no automatic dependency or skill installation.
 
 ## Defaults worth keeping
 
-- Rust owns shared product rules; native adapters own platform services and UI state.
+- When Rust is used, it owns portable product rules. Each platform owns its services and UI state.
 - Generate a narrow typed API from Rust; keep generated artifacts out of source control.
 - Add persistence, networking, sync, and a server only when the app needs them.
 - Verify selected targets only. A build, a launch, and human acceptance are different evidence.
 - Prefer focused tests and small changes; ask a human for lengthy or subjective device checks.
 
 The [architecture](ARCHITECTURE.md) and [decision notes](docs/DECISIONS.md) explain the costs
-and when a simpler native-only implementation could be a better fit.
+and when sharing a Rust core is worth the extra integration.
+
+For a deeper review, start with the [ChatGPT research prompt](docs/prompts/chatgpt-research.md),
+then give its report and the [Fable/Astra review prompt](docs/prompts/architecture-skills-review.md)
+to a coding agent with the checkout.
 
 ## Contributing and license
 

@@ -1,30 +1,35 @@
 ---
 name: native-apple
-description: "Implement or integrate the Apple side of a RustNative app using Swift, SwiftUI, and UniFFI. Use for selected iOS, iPadOS, or macOS targets, native device behavior, and Rust framework integration."
+description: "Implement and verify selected iOS, iPadOS, or macOS targets in RustNative. Use for SwiftUI, AppKit, lifecycle, device behavior, packaging, debugging, or optional Rust integration."
 ---
 
 # Apple native work
 
 Read [Apple instructions](../../../apple/AGENTS.md), [project selection](../../../docs/PROJECT.md),
-and the feature/core contract. Work only on selected Apple targets. At first activation use
-[TOOLCHAIN.md](../../../docs/TOOLCHAIN.md); Android-only work requires no Apple builds.
+and the feature behavior. At first activation use the [toolchain checklist](../../../docs/TOOLCHAIN.md).
+Prefer SwiftUI state and scenes. Keep AppKit interop focused on the macOS behavior that needs it.
 
-Keep SwiftUI state, scene lifecycle, navigation, and Apple services native. Put portable
-rules in Rust. Isolate generated bindings behind a small adapter and define object lifetime,
-concurrency, and late-result handling. Keep expensive synchronous Rust calls off UI/cooperative
-executors that must stay responsive; an actor is not a dedicated blocking worker.
+## Required checks for affected behavior
 
-Generate matching Swift bindings, headers/module maps, and target libraries with the pinned
-UniFFI version. Device and simulator destinations need distinct builds even on arm64.
-Prove a real call and typed error on the selected target before expanding the UI.
+- Discover the actual scheme and destination with Xcode or `xcodebuild`. Build, confirm the app
+  launched, and run the [feature scenario](../../../docs/PARITY.md#verify-one-scenario) for each
+  affected target. Use physical hardware for hardware-dependent behavior. Record device gaps.
+- For UI changes, check VoiceOver labels and focus, supported text sizes, and relevant input
+  such as touch on iPhone, keyboard on iPad, or keyboard and window focus on Mac. Exercise
+  background/resume, scene recreation, or window restoration when the change affects them.
+- For persistence changes, verify data after relaunch and migrations against synthetic older data
+  when applicable. For permission changes, check grant, denial, and recovery, along with the
+  relevant usage descriptions or entitlements.
+- For release or packaging changes, inspect the actual bundle, architecture, signing, and
+  entitlements. Verify a release launch where feasible and check notarization when the chosen
+  distribution path requires it. If using UniFFI, verify matching device/simulator libraries,
+  generated bindings, a real release call, and a typed error. See [Apple packaging](../../../docs/TOOLCHAIN.md#apple-details).
 
-Check current feature APIs against the chosen deployment targets. Use
-[SwiftUI model data](https://developer.apple.com/documentation/swiftui/model-data),
-[UniFFI Xcode integration](https://mozilla.github.io/uniffi-rs/latest/swift/xcode.html), and
-[XCFramework guidance](https://developer.apple.com/documentation/xcode/creating-a-multi-platform-binary-framework-bundle)
-as relevant. Do not patch generated code or add unsupported concurrency assertions.
+For failures, record the scheme, destination, reproduction steps, and first relevant error.
+Use Xcode or the system log for scoped diagnostics, and LLDB when a breakpoint or stack
+trace would help. Keep signing material local and use isolated test data.
 
-Run focused builds/checks for selected targets. Treat macOS, iPhone, and iPad evidence separately.
-Use the leading platform's [port packet](../../../docs/PARITY.md), adapting to Apple conventions.
-Ask for human visual/device acceptance when it is cheaper, and record signing or runtime gaps
-explicitly. Keep credentials and provisioning out of the repository.
+Use broader destination matrices, Instruments, and lengthy visual checks when warranted.
+See OpenAI's [iOS debugging](https://github.com/openai/plugins/tree/main/plugins/build-ios-apps/skills/ios-debugger-agent)
+and [macOS build and debug](https://github.com/openai/plugins/tree/main/plugins/build-macos-apps/skills/build-run-debug)
+workflows for reference.

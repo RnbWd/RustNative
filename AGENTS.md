@@ -1,14 +1,14 @@
 # Agent instructions
 
-RustNative is a reusable native-app starter. Read [README.md](README.md),
+RustNative is a reusable starter for personal web and native apps. Read [README.md](README.md),
 [docs/PROJECT.md](docs/PROJECT.md), and [ARCHITECTURE.md](ARCHITECTURE.md) first.
 Read platform instructions only for the area you change.
 
 ## Scope and working style
 
 - Current phase: starter docs/tooling, no app. Do not scaffold an app until asked to build one.
-- Default mode: `android-only`, one agent. The user's current request takes precedence over
-  saved settings; update `docs/PROJECT.md` when the selection changes.
+- Read the primary and active targets from `docs/PROJECT.md`. Work solo by default.
+  The user's current request takes precedence over saved selections. Record changes there.
 - Work on a few concrete tasks at a time. Make architectural decisions, keep dependencies
   modest, and leave an understandable result. Avoid speculative layers and large design docs.
 - Keep this starter domain-neutral. App-specific requirements belong in a derived project's
@@ -16,12 +16,12 @@ Read platform instructions only for the area you change.
 
 ## Boundaries
 
-1. Shared product rules belong in `core/`. Native code owns UI state, navigation, accessibility,
+1. Portable product rules that use Rust belong in `core/`. Platform code owns UI state, navigation, accessibility,
    lifecycle, permissions, secure storage, and device APIs. See the architecture ownership table.
 2. Describe a changed public core contract in `docs/CORE-API.md` before consumers implement it.
    Rust source defines the generated API; the document records semantics and status.
-3. Never edit generated bindings or binaries. Regenerate them from the same source and pinned
-   UniFFI version as the core. Keep generator/runtime versions aligned and checksums enabled.
+3. For projects using UniFFI, regenerate bindings from the matching Rust source and pinned
+   version. Keep generator/runtime versions aligned and checksums enabled.
 4. Keep blocking Rust work off the UI thread. Define core lifetime, concurrency, and cancellation
    semantics before introducing a stateful object or asynchronous boundary.
 5. Choose one owner for each durable dataset. Do not mirror business rules or maintain two
@@ -38,7 +38,7 @@ Read platform instructions only for the area you change.
 - One agent is the normal starting point. Use parallel platform agents only when the user
   chooses that workflow; follow [docs/WORKFLOW.md](docs/WORKFLOW.md).
 - Assign an integration owner for `core/`, API contracts, shared docs, dependency versions, and
-  generated build plumbing. Platform workers own `android/` or `apple/` and their feature evidence.
+  generated build plumbing. Platform workers own their platform code and feature evidence.
 - Parallel workers are not alone in the codebase: preserve other work and accommodate shared
   changes. If separate checkouts are used, agree on a contract revision and integration base.
 - Start separate chats or message other chats only when requested. A workflow description

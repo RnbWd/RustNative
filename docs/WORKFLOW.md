@@ -6,12 +6,10 @@ only when the public Rust boundary changes. Do not require a design document for
 
 ## Solo (default)
 
-One agent owns the Rust/native slice end to end. Implement and verify the selected targets.
-For `android-only` or `apple-only`, keep the other platform dormant. When there is useful behavior
-to port, retain a small [port packet](PARITY.md). Missing deferred work does not block delivery.
-
-If dual implementation is small, one agent can do both sequentially. Parallelism is a choice,
-not a requirement or a reason to generate speculative tasks.
+One agent owns the feature slice end to end. Implement and verify the selected targets.
+Start on the primary target for a new feature and use its observed behavior as a reference
+when working through other affected active targets. Retain a small [port packet](PARITY.md)
+when useful. Mixed projects can be delivered sequentially by one agent.
 
 ## Two platform chats
 
@@ -61,8 +59,8 @@ If chat messaging is unavailable, leave a short handoff the user can pass betwee
 ## Completion and interruption
 
 Report the behavior delivered and focused checks, distinguishing build, runtime, and human
-acceptance. For dual mode, record each selected target; a blocked Apple check cannot become
-"both verified" because Android passed. For inactive targets, record the port impact and defer checks.
+acceptance. Record the result per affected active target. For inactive targets, record the port
+impact and defer checks.
 
 Before an interruption, write a short note using [templates/HANDOFF.md](templates/HANDOFF.md).
 Include the current contract, files, checks, blocker, and next concrete step. Delete the note once

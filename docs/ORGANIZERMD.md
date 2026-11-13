@@ -1,8 +1,10 @@
 # OrganizerMD integration
 
 [organizermd.json](../organizermd.json) is the shared dashboard configuration. It uses version 2
-with six actions: Build, Test, Run, Install, Devices, and Tools. Variants live in menus and refer
-to commands defined once. Build/launch/install entries are labeled unfinished until an app exists.
+with a Project setup action that prints the common checklist. Its menu offers platform checklists
+and links to both research prompts.
+Template checks, native setup/run, device inventory, and cleanup are secondary actions.
+Native build/launch/install entries are labeled unfinished until an app exists.
 
 Template validation, device inventory, cleanup, and bootstrap checklists work now; see
 [scripts/README.md](../scripts/README.md). Clicking an unfinished native task prints its next
@@ -16,7 +18,7 @@ When scaffolding a platform or changing a developer command:
 1. Implement the corresponding script with the actual project, scheme, artifact, and configuration.
    Keep build, install, launch, and emulator-only operations distinct.
 2. Update its command and action options in `organizermd.json`; verify the invocation before
-   removing setup-needed labels. Keep Android as primary until the project mode changes.
+   removing setup-needed labels. Keep the selected delivery target primary.
 3. Remove unneeded inactive-platform menu entries in a derived app, or keep them clearly dormant.
    Add debug/release, simulator/device, and no-build options only as the scripts implement them.
 4. Retain app-managed `hiddenCommands`, `inspector`, and any existing command `snapshot` objects.
